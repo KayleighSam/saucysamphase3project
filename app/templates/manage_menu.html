@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Menu</title>
+</head>
+<body>
+    <h1>Manage Menu</h1>
+    <form method="POST">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="text" name="price" placeholder="Price" required>
+        <input type="text" name="category" placeholder="Category" required>
+        <select name="status">
+            <option value="available">Available</option>
+            <option value="unavailable">Unavailable</option>
+        </select>
+        <button type="submit">Add Item</button>
+    </form>
+
+    <h2>Menu Items</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        {% for item in menu_items %}
+        <tr>
+            <td>{{ item[1] }}</td>
+            <td>{{ item[2] }}</td>
+            <td>{{ item[3] }}</td>
+            <td>{{ item[4] }}</td>
+            <td>
+                <form action="{{ url_for('admin.delete_menu', menu_id=item[0]) }}" method="POST">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

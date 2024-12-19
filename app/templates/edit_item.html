@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Item</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('index') }}">FastFood</a>
+            <a class="nav-link" href="{{ url_for('index') }}">
+                <i class="bi bi-house-door"></i> Home
+            </a>
+            <a class="nav-link" href="{{ url_for('admin.admin_dashboard') }}">
+                Admin Dashboard
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1 class="mb-4">Edit Menu Item</h1>
+
+        <!-- Back Button -->
+        <a href="{{ url_for('admin.admin_menu') }}" class="btn btn-secondary mb-4">Go Back</a>
+
+        <!-- Success Message -->
+        {% if success %}
+        <div class="alert alert-success" role="alert">
+            Your menu item has been successfully updated!
+        </div>
+        {% endif %}
+
+        <!-- Edit Item Form -->
+        <form method="POST" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="name" class="form-label">Item Name</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ item[1] }}" required>
+                <div class="invalid-feedback">
+                    Please provide a valid item name.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input type="number" class="form-control" id="price" name="price" value="{{ item[2] }}" required step="0.01">
+                <div class="invalid-feedback">
+                    Please provide a valid price.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select class="form-select" id="category" name="category" required>
+                    <option value="Main Course" {% if item[3] == 'Main Course' %}selected{% endif %}>Main Course</option>
+                    <option value="salads" {% if item[3] == 'salads' %}selected{% endif %}>Salads</option>
+                    <option value="desserts" {% if item[3] == 'desserts' %}selected{% endif %}>Desserts</option>
+                    <option value="drinks" {% if item[3] == 'drinks' %}selected{% endif %}>Drinks</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please select a category.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-select" id="status" name="status" required>
+                    <option value="available" {% if item[4] == 'available' %}selected{% endif %}>Available</option>
+                    <option value="unavailable" {% if item[4] == 'unavailable' %}selected{% endif %}>Unavailable</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please select a status.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Image URL</label>
+                <input type="url" class="form-control" id="image" name="image" value="{{ item[5] }}" required>
+                <div class="invalid-feedback">
+                    Please provide a valid image URL.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Preview Image</label>
+                <div>
+                    <img src="{{ item[5] }}" alt="Item Image" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+                </div>
+            </div>
+            <!-- Quantity Field -->
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Quantity</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" value="{{ item[6] }}" required min="0">
+                <div class="invalid-feedback">
+                    Please provide a valid quantity.
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Form Validation Script -->
+    <script>
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-4">
+    <h1>Shopping Cart</h1>
+
+    <a href="{{ url_for('index') }}" class="btn btn-info mb-4">
+        <i class="bi bi-house-door"></i> Back to Home
+    </a>
+
+    {% if items %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item[1] }}</td>
+                <td>${{ item[3] }}</td>
+                <td>{{ cart_items.count(item[0]) }}</td>
+                <td>${{ item[3] * cart_items.count(item[0]) }}</td>
+                <td>
+                    <a href="{{ url_for('increase_quantity', item_id=item[0]) }}" class="btn btn-primary btn-sm">+</a>
+                    <a href="{{ url_for('decrease_quantity', item_id=item[0]) }}" class="btn btn-warning btn-sm">-</a>
+                    <a href="{{ url_for('remove_from_cart', item_id=item[0]) }}" class="btn btn-danger btn-sm">Remove</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between">
+        <h4>Total: ${{ "%.2f"|format(total_amount) }}</h4>
+        <div>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Continue Shopping</a>
+            <!-- Proceed to checkout form -->
+            <form action="{{ url_for('checkout') }}" method="POST" class="d-inline" id="checkout-form">
+                <!-- Phone number input field -->
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" id="phone" name="phone" required>
+                </div>
+                <!-- Tendered Amount input field -->
+                <div class="mb-3">
+                    <label for="tendered" class="form-label">Tendered Amount</label>
+                    <input type="number" class="form-control" id="tendered" name="tendered" required>
+                </div>
+                <!-- Balance to return -->
+                <div class="mb-3">
+                    <label for="balance" class="form-label">Balance to Return</label>
+                    <input type="text" class="form-control" id="balance" readonly>
+                </div>
+                <button type="submit" class="btn btn-success" id="checkout-button" disabled>Proceed to Checkout</button>
+            </form>
+        </div>
+    </div>
+
+    {% else %}
+    <p>Your cart is empty!</p>
+    {% endif %}
+    
+    <!-- Message for insufficient tendered amount -->
+    <div id="insufficient-amount-message" class="alert alert-danger mt-3" style="display: none;">
+        Please enter an amount equal to or greater than the total.
+    </div>
+</div>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JavaScript to validate the tendered amount and calculate balance -->
+<script>
+    // Function to enable or disable the checkout button based on the tendered amount
+    document.getElementById('tendered').addEventListener('input', function() {
+        var tenderedAmount = parseFloat(this.value);
+        var totalAmount = parseFloat('{{ total_amount }}');
+        var balanceField = document.getElementById('balance');
+        var checkoutButton = document.getElementById('checkout-button');
+        var insufficientMessage = document.getElementById('insufficient-amount-message');
+        
+        // Calculate balance
+        var balance = tenderedAmount - totalAmount;
+        
+        // Display balance if tendered amount is greater than total
+        if (balance >= 0) {
+            balanceField.value = '$' + balance.toFixed(2);  // Display balance with 2 decimal places
+            checkoutButton.disabled = false;  // Enable checkout button
+            insufficientMessage.style.display = 'none';  // Hide insufficient message
+        } else {
+            balanceField.value = '';  // Clear balance field if tendered is less than total
+            checkoutButton.disabled = true;  // Disable checkout button
+            insufficientMessage.style.display = 'block';  // Show insufficient message
+        }
+    });
+</script>
+
+</body>
+</html>

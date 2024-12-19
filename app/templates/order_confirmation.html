@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .letterhead {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .letterhead h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0;
+        }
+        .letterhead p {
+            margin: 0;
+            font-size: 1rem;
+        }
+        .order-confirmation {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .order-details-table th, .order-details-table td {
+            text-align: center;
+        }
+        .order-summary {
+            background-color: #f1f1f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .order-summary h4 {
+            font-weight: 600;
+        }
+        .btn-back {
+            margin-top: 20px;
+        }
+        .thank-you-message {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #28a745;
+        }
+        .order-number {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <!-- Letterhead -->
+    <div class="letterhead">
+        <h1>Saucy Sam's</h1>
+        <p><em>"Where Flavor Gets Saucy"</em></p>
+        <p>Phone: 0728231511 | Email: info@saucysams.com</p>
+        <hr>
+    </div>
+
+    <div class="order-confirmation">
+        <h1 class="text-center mb-4">Order Confirmation</h1>
+
+        <div class="thank-you-message text-center mb-4">
+            <h3>Thank you for your order!</h3>
+            <p>Your order has been successfully placed.</p>
+        </div>
+
+        <!-- Order Number Display -->
+        <div class="order-number text-center mb-4">
+            <p>Order Number: <strong>#{{ order_number }}</strong></p>
+        </div>
+
+        <div class="order-summary">
+            <h5 class="mb-3">Order Details</h5>
+            <table class="table table-striped order-details-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order_details %}
+                    <tr>
+                        <td>{{ item[0] }}</td>
+                        <td>${{ item[1] }}</td>
+                        <td>{{ item[2] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="order-summary text-center">
+            <h4 class="mb-3">Total: ${{ total_amount }}</h4>
+        </div>
+
+        <!-- Buttons -->
+        <div class="text-center">
+            <a href="{{ url_for('index') }}" class="btn btn-info btn-lg btn-back">
+                <i class="bi bi-house-door"></i> Back to Menu
+            </a>
+            <button class="btn btn-primary btn-lg mt-3" onclick="window.print()">
+                <i class="bi bi-printer"></i> Print Receipt
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

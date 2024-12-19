@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Orders</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('index') }}">FastFood</a>
+            <a class="nav-link" href="{{ url_for('index') }}">
+                <i class="bi bi-house-door"></i> Home
+            </a>
+            <a class="nav-link" href="{{ url_for('view_cart') }}">
+                Cart <span class="badge bg-secondary">{{ cart_items|length }}</span>
+            </a>
+            <a class="nav-link" href="{{ url_for('all_items') }}">
+                All Items
+            </a>
+            <a class="nav-link" href="{{ url_for('my_orders') }}">
+                Track My Orders
+            </a>
+            <!-- Admin tab with link -->
+            <a class="nav-link" href="{{ url_for('admin.admin_dashboard') }}">
+                Admin <i class="bi bi-person-lock"></i>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1 class="mb-4">All Orders</h1>
+
+        <!-- Go Back to Admin Page Button -->
+        <div class="d-flex justify-content-start mb-4">
+            <a href="{{ url_for('admin.admin_dashboard') }}" class="btn btn-light">Go Back to Admin Page</a>
+        </div>
+
+        <!-- Search Form -->
+        <form method="GET" action="{{ url_for('admin.admin_orders') }}" class="mb-4">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search by Order ID, User ID or Status" name="search" value="{{ request.args.get('search', '') }}">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </form>
+
+        <!-- Display Error Message if No Orders Found -->
+        {% if orders|length == 0 %}
+            <div class="alert alert-warning" role="alert">
+                No orders found for the search term "{{ search_query }}".
+            </div>
+        {% endif %}
+
+        <!-- Orders Table -->
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Order ID</th>
+                    <th>User ID</th>
+                    <th>Status</th>
+                    <th>Phone</th>
+                    <th>Order Number</th>
+                    <th>Ordered Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{ order[0] }}</td> <!-- Order ID -->
+                        <td>{{ order[1] }}</td> <!-- User ID -->
+                        <td>{{ order[2] }}</td> <!-- Current Status -->
+                        <td>{{ order[3] }}</td> <!-- Phone -->
+                        <td>{{ order[5] }}</td> <!-- Order Number -->
+                        <td>{{ order[6] }}</td> <!-- Ordered Date -->
+                        <td>
+                            <!-- Status Change Form -->
+                            <form action="{{ url_for('admin.update_order_status', order_id=order[0]) }}" method="POST">
+                                <div class="input-group">
+                                    <select name="status" class="form-select">
+                                        <option value="Pending" {% if order[2] == 'Pending' %} selected {% endif %}>Pending</option>
+                                        <option value="Confirmed" {% if order[2] == 'Confirmed' %} selected {% endif %}>Confirmed</option>
+                                        <option value="Canceled" {% if order[2] == 'Canceled' %} selected {% endif %}>Canceled</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-warning btn-sm">Update Status</button>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

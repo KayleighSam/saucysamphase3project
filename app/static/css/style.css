@@ -1,0 +1,54 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+}
+
+.menu-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.menu-item {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    width: 250px;
+    text-align: center;
+}
+
+form {
+    margin: 2rem;
+    padding: 2rem;
+    border: 1px solid #ddd;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+form div {
+    margin-bottom: 1rem;
+}
+
+form input, form textarea, form select {
+    width: 100%;
+    padding: 0.5rem;
+}
+
+form button {
+    padding: 0.5rem 2rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #218838;
+}

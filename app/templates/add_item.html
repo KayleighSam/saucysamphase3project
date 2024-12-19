@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Item</title>
+</head>
+<body>
+    <h1>Add New Item</h1>
+    <form method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required><br>
+
+        <label for="price">Price:</label>
+        <input type="text" name="price" required><br>
+
+        <label for="category">Category:</label>
+        <input type="text" name="category" required><br>
+
+        <label for="status">Status:</label>
+        <select name="status" required>
+            <option value="available">Available</option>
+            <option value="unavailable">Unavailable</option>
+        </select><br>
+
+        <button type="submit">Add Item</button>
+    </form>
+</body>
+</html>
