@@ -16,6 +16,7 @@ Menu Management: Admins can manage the menu, adding, editing, or removing items,
 [https://docs.google.com/presentation/d/1TZeoxUUa5qjGveZRE4nHUtKZTD8SgEsjk-iE_Mtc7C4/edit#slide=id.g5f461a8324_0_51]
 
 **Recording of the App**-
+[https://drive.google.com/file/d/1Hr7GGlW179nZKw0DQ8y7Hz1YNxisWZJf/view?usp=sharing]
 
 
 
