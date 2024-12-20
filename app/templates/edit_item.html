@@ -54,7 +54,7 @@
                 <label for="category" class="form-label">Category</label>
                 <select class="form-select" id="category" name="category" required>
                     <option value="Main Course" {% if item[3] == 'Main Course' %}selected{% endif %}>Main Course</option>
-                    <option value="salads" {% if item[3] == 'salads' %}selected{% endif %}>Salads</option>
+                    <option value="sides" {% if item[3] == 'sides' %}selected{% endif %}>Sides</option>
                     <option value="desserts" {% if item[3] == 'desserts' %}selected{% endif %}>Desserts</option>
                     <option value="drinks" {% if item[3] == 'drinks' %}selected{% endif %}>Drinks</option>
                 </select>

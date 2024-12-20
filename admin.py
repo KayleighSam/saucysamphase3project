@@ -30,9 +30,6 @@ def admin_dashboard():
         canceled_orders=canceled_orders
     )
 
-
-
-
 # Admin Orders Route
 @admin_bp.route('/orders', methods=['GET'])
 def admin_orders():
@@ -75,6 +72,21 @@ def update_order_status(order_id):
     conn.close()
 
     flash('Order status updated successfully!', 'success')
+    return redirect(url_for('admin.admin_orders'))
+
+# Delete Order Route
+@admin_bp.route('/delete_order/<int:order_id>', methods=['POST'])
+def delete_order(order_id):
+    conn = sqlite3.connect('fastfood.db')
+    cursor = conn.cursor()
+
+    # Delete the order from the orders table
+    cursor.execute("DELETE FROM orders WHERE id = ?", (order_id,))
+
+    conn.commit()
+    conn.close()
+
+    flash('Order deleted successfully!', 'success')
     return redirect(url_for('admin.admin_orders'))
 
 # Admin Menu Route
