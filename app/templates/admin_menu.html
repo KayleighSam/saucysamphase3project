@@ -79,7 +79,6 @@
                             {{ item[4] | capitalize }}
                         </span>
                     </p>
-                    <p><strong>Quantity:</strong> {{ item[7] }} </p> <!-- Display Quantity -->
                 </div>
                 <div class="menu-actions">
                     <a href="{{ url_for('admin.edit_item', item_id=item[0]) }}" class="btn btn-warning btn-sm">Edit</a>
@@ -117,7 +116,6 @@
                         <div class="mb-3">
                             <label for="category" class="form-label">Category</label>
                             <select class="form-select" id="category" name="category" required>
-                             
                                 <option value="maincourse">Main Course</option>
                                 <option value="sides">Sides</option>
                                 <option value="drinks">Drinks</option>
@@ -134,10 +132,6 @@
                         <div class="mb-3">
                             <label for="image" class="form-label">Image URL</label>
                             <input type="url" class="form-control" id="image" name="image" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="quantity" class="form-label">Quantity</label>
-                            <input type="number" class="form-control" id="quantity" name="quantity" required value="1">
                         </div>
                     </div>
                     <div class="modal-footer">

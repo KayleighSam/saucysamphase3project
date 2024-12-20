@@ -85,14 +85,6 @@
                     <img src="{{ item[5] }}" alt="Item Image" class="img-fluid" style="max-width: 200px; max-height: 200px;">
                 </div>
             </div>
-            <!-- Quantity Field -->
-            <div class="mb-3">
-                <label for="quantity" class="form-label">Quantity</label>
-                <input type="number" class="form-control" id="quantity" name="quantity" value="{{ item[6] }}" required min="0">
-                <div class="invalid-feedback">
-                    Please provide a valid quantity.
-                </div>
-            </div>
             <button type="submit" class="btn btn-primary">Save Changes</button>
         </form>
     </div>
