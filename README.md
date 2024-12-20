@@ -9,7 +9,7 @@ Admin Order Management: Admins can view, manage, and confirm customer orders, in
 Menu Management: Admins can manage the menu, adding, editing, or removing items, including updating item details such as name, description, price, category, and availability status.
 
 ## LIVE LINKS
-**github repository**-
+**GitHub repository**-
 [*https://github.com/KayleighSam/saucysamphase3project.git*]
 
 **Presentation slides**-
@@ -21,7 +21,7 @@ Menu Management: Admins can manage the menu, adding, editing, or removing items,
 
 
 ## Technologies Used
-Frontend: Html Bootstrap,Flusk Router,CSS ,Js, fonts awesome, Sqlite3
+Frontend: HTML Bootstrap, Flask Router, CSS, JS, fonts awesome, Sqlite3
 
 # Setup Instructions
 Clone the repository: git clone [*https://github.com/KayleighSam/saucysamphase3project.git*]
@@ -30,12 +30,12 @@ Install dependencies:
 npm Flusk
 npm install sqlite3 
 npm install Font Awesome
-Run the app: and it generate the localhost link such as :"http://127.0.0.1:5000/" it should populate you to the models navigation in the browser
+Run the app: and it generate the localhost link such as : "http://127.0.0.1:5000/" it should populate you to the model navigation in the browser
 
 ## Usage
 Browsing Menu: 
 View products by category and filter based on your preferences.
-Adding Items to Cart: Add items to your cart directly from the menu page. 
+Adding Items to Cart: Add items directly from the menu page to your cart. 
 Deleting Products and carts from the box selection.
 Trail your Order all through to the checkout.
 Update Details of products. Account for the products selected for purchase.
